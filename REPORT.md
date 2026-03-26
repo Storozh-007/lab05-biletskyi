@@ -3,7 +3,7 @@
 
 ---
 
-## Структура таблиці users
+## Рисунок 1 - Структура таблиці users
 
 ```
 \d users
@@ -24,7 +24,7 @@
 
 ---
 
-## Структура таблиці accounts
+## Рисунок 2 - Структура таблиці accounts
 
 ```
 \d accounts
@@ -46,7 +46,7 @@
 
 ---
 
-## Структура таблиці transactions
+## Рисунок 3 - Структура таблиці transactions
 
 ```
 \d transactions
@@ -70,7 +70,7 @@
 
 ---
 
-## Дані таблиці users
+## Рисунок 4 - Дані таблиці users
 
 ```
 SELECT * FROM users;
@@ -94,7 +94,7 @@ SELECT * FROM users;
 
 ---
 
-## Дані таблиці accounts
+## Рисунок 5 - Дані таблиці accounts
 
 ```
  id | user_id | account_number |  balance  | account_type 
@@ -110,7 +110,7 @@ SELECT * FROM users;
 
 ---
 
-## Дані таблиці categories
+## Рисунок 6 - Дані таблиці categories
 
 ```
  id |      name       
@@ -130,7 +130,7 @@ SELECT * FROM users;
 
 ---
 
-## INNER JOIN результат
+## Рисунок 7 - INNER JOIN результат
 
 ```
 SELECT u.name, a.account_number, SUM(t.amount) AS total
@@ -142,7 +142,7 @@ GROUP BY u.name, a.account_number;
 
 ---
 
-## Агрегатні функції
+## Рисунок 8 - Агрегатні функції
 
 ```
 SELECT account_type, COUNT(*), SUM(balance), AVG(balance)
@@ -160,7 +160,7 @@ FROM accounts GROUP BY account_type;
 
 ---
 
-## Stored Procedure
+## Рисунок 9 - Stored Procedure
 
 ```
 CALL calculate_balance_proc(1, NULL);
@@ -174,7 +174,7 @@ CALL calculate_balance_proc(1, NULL);
 
 ---
 
-## Trigger перевірка
+## Рисунок 10 - Trigger перевірка
 
 ```
 SELECT balance FROM accounts WHERE id = 1;
@@ -197,7 +197,7 @@ INSERT 0 1
 
 ---
 
-## Дані студента Білецький Денис
+## Рисунок 11 - Дані студента Білецький Денис
 
 ```
 SELECT u.name, a.account_number, a.balance, a.account_type
@@ -217,7 +217,7 @@ WHERE u.name = 'Денис Білецький';
 
 ---
 
-## Баланси користувачів
+## Рисунок 12 - Баланси користувачів
 
 ```
 SELECT u.name, SUM(a.balance) as total
