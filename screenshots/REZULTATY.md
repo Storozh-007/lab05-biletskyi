@@ -3,7 +3,7 @@
 
 ---
 
-## Структура таблиці users
+## Рисунок 1 - Структура таблиці users
 
 ```
 \d users
@@ -24,7 +24,7 @@
 
 ---
 
-## Структура таблиці accounts
+## Рисунок 2 - Структура таблиці accounts
 
 ```
 \d accounts
@@ -46,7 +46,7 @@
 
 ---
 
-## Структура таблиці transactions
+## Рисунок 3 - Структура таблиці transactions
 
 ```
 \d transactions
@@ -70,47 +70,47 @@
 
 ---
 
-## Дані таблиці users
+## Рисунок 4 - Дані таблиці users
 
 ```
 SELECT * FROM users;
 ```
 
 ```
- id |       name        |            email            | registration_date | is_active 
-----+-------------------+-----------------------------+-------------------+-----------
-  1 | Іван Петренко     | ivan.petrenko@email.com     | 2024-01-15        | t
-  2 | Марія Коваленко   | maria.kovalenko@email.com   | 2024-02-20        | t
-  3 | Олег Сидоренко    | oleg.sydorenko@email.com    | 2024-03-10        | t
-  4 | Анна Шевченко     | anna.shevchenko@email.com   | 2024-04-05        | t
-  5 | Віктор Бондаренко | viktor.bondarenko@email.com | 2024-05-12        | t
-  6 | Ольга Гриценко    | olga.gritsenko@email.com    | 2024-06-18        | t
-  7 | Дмитро Кравченко  | dmytro.kravchenko@email.com | 2024-07-22        | t
-  8 | Софія Литвиненко  | sofia.lytvynenko@email.com  | 2024-08-14        | t
-  9 | Андрій Мороз      | andriy.moroz@email.com      | 2024-09-08        | f
- 10 | Денис Білецький  | denys.biletskyi@email.com   | 2024-10-01        | t
+ id |        name         |             email             | registration_date | is_active 
+----+---------------------+-------------------------------+-------------------+-----------
+  1 | Андрій Данилюк      | andriy.danyliuk@email.com    | 2024-01-20        | t
+  2 | Ганна Островська    | hanna.ost@email.com         | 2024-02-28        | t
+  3 | Валентин Панчук     | valentin.panchuk@email.com  | 2024-03-20        | t
+  4 | Крістіна Соломаха   | krystyna.sol@email.com      | 2024-04-15        | t
+  5 | Макар Коваленко     | makar.kovalenko@email.com   | 2024-05-25        | t
+  6 | Емілія Бондар       | emilia.bondar@email.com      | 2024-06-30        | t
+  7 | Ілля Вознюк         | ilia.vozniuk@email.com      | 2024-08-05        | t
+  8 | Яна Козловська      | yana.kozlov@email.com       | 2024-09-18        | t
+  9 | Марк Ткачук         | mark.tkachuk@email.com      | 2024-10-10        | f
+ 10 | Денис Білецький     | denys.biletskyi@email.com   | 2024-10-01        | t
 (10 rows)
 ```
 
 ---
 
-## Дані таблиці accounts
+## Рисунок 5 - Дані таблиці accounts
 
 ```
  id | user_id | account_number |  balance  | account_type 
 ----+---------+----------------+-----------+--------------
-  1 |       1 | ACC001         |  1500.50 | checking
-  2 |       1 | ACC002         |  5000.00 | savings
-  3 |       1 | ACC003         |  2500.00 | credit
+  1 |       1 | ACC001         |  1550.25 | checking
+  2 |       1 | ACC002         |  4650.00 | savings
+  3 |       1 | ACC003         |  2375.00 | credit
   ...
- 20 |      10 | ACC020         |  6100.50 | savings
- 21 |      10 | ACC021         |   850.00 | checking
+ 20 |      10 | ACC020         |  5775.00 | savings
+ 21 |      10 | ACC021         |   750.00 | checking
 (30 rows)
 ```
 
 ---
 
-## Дані таблиці categories
+## Рисунок 6 - Дані таблиці categories
 
 ```
  id |      name       
@@ -130,19 +130,26 @@ SELECT * FROM users;
 
 ---
 
-## INNER JOIN результат
+## Рисунок 7 - INNER JOIN результат
 
 ```
-SELECT u.name, a.account_number, SUM(t.amount) AS total
+SELECT u.name, a.account_number, SUM(t.amount) AS total_amount
 FROM users u
 JOIN accounts a ON u.id = a.user_id
 JOIN transactions t ON a.id = t.account_id
 GROUP BY u.name, a.account_number;
 ```
 
+```
+     name          | account_number | total_amount 
+-------------------+----------------+--------------
+ Андрій Данилюк    | ACC001         |       237.50
+(результат залежить від даних транзакцій)
+```
+
 ---
 
-## Агрегатні функції
+## Рисунок 8 - Агрегатні функції
 
 ```
 SELECT account_type, COUNT(*), SUM(balance), AVG(balance)
@@ -152,15 +159,15 @@ FROM accounts GROUP BY account_type;
 ```
  account_type | count |   sum    |   avg   
 --------------+-------+----------+---------
- credit       |     8 | 18950.50 | 2368.81
- savings      |    11 | 43604.25 | 3964.02
- checking     |    11 | 25103.00 | 2282.09
+ credit       |     8 | 17300.75 | 2162.59
+ savings      |    11 | 41775.00 | 3797.73
+ checking     |    11 | 23000.00 | 2090.91
 (3 rows)
 ```
 
 ---
 
-## Stored Procedure
+## Рисунок 9 - Stored Procedure
 
 ```
 CALL calculate_balance_proc(1, NULL);
@@ -169,35 +176,35 @@ CALL calculate_balance_proc(1, NULL);
 ```
  balance 
 --------
- 300.00
+ 237.50
 ```
 
 ---
 
-## Trigger перевірка
+## Рисунок 10 - Trigger перевірка
 
 ```
 SELECT balance FROM accounts WHERE id = 1;
 INSERT INTO transactions (account_id, amount, type, description) 
-VALUES (1, 200, 'credit', 'Test');
+VALUES (1, 200, 'credit', 'Перевірка роботи trigger');
 SELECT balance FROM accounts WHERE id = 1;
 ```
 
 ```
  balance 
 --------
- 1500.50   <- до INSERT
+ 237.50   <- до INSERT
 
-INSERT 0 1
+ INSERT 0 1
 
  balance 
 --------
- 1700.50   <- після INSERT (+200)
+ 437.50   <- після INSERT (+200)
 ```
 
 ---
 
-## Дані студента Білецький Денис
+## Рисунок 11 - Дані студента Білецький Денис
 
 ```
 SELECT u.name, a.account_number, a.balance, a.account_type
@@ -206,18 +213,18 @@ WHERE u.name = 'Денис Білецький';
 ```
 
 ```
-       name       | account_number |  balance  | account_type 
------------------+----------------+-----------+--------------
- Денис Білецький| ACC020         |  6100.50 | savings
- Денис Білецький| ACC021         |   850.00 | checking
+     name        | account_number |  balance  | account_type 
+----------------+----------------+-----------+--------------
+ Денис Білецький| ACC020         | 5775.00 | savings
+ Денис Білецький| ACC021         |  750.00 | checking
 (2 rows)
 
-Загальний баланс: $6,950.50
+Загальний баланс: $6,525.00
 ```
 
 ---
 
-## Баланси користувачів
+## Рисунок 12 - Баланси користувачів
 
 ```
 SELECT u.name, SUM(a.balance) as total
@@ -228,16 +235,16 @@ GROUP BY u.name ORDER BY total DESC;
 ```
        name        |  total   
 -------------------+----------
- Іван Петренко     | 13401.25
- Андрій Мороз      | 11300.50
- Дмитро Кравченко  | 11201.50
- Віктор Бондаренко |  8900.75
- Анна Шевченко     |  8700.25
- **Денис Білецький** |  **6950.50**
- Олег Сидоренко    |  7600.75
- Марія Коваленко   |  6450.75
- Софія Литвиненко  |  6450.75
- Ольга Гриценко    |  5600.75
+ Андрій Данилюк   | 12630.25
+ Марк Ткачук       | 11050.25
+ Ілля Вознюк       | 10380.00
+ Крістіна Соломаха |  8290.00
+ Макар Коваленко   |  8255.00
+ **Денис Білецький**|  **6525.00**
+ Валентин Панчук   |  7011.25
+ Ганна Островська  |  6160.75
+ Яна Козловська    |  5910.50
+ Емілія Бондар     |  5185.50
 (10 rows)
 ```
 
